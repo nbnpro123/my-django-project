@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .form-container { max-width: 500px; margin: 0 auto; }
+        input, button { padding: 10px; margin: 5px 0; width: 100%; }
+        button { background: #4CAF50; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>📝 Регистрация пользователя</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Имя" required><br>
+            <input type="number" name="age" placeholder="Возраст" required><br>
+            <input type="email" name="email" placeholder="Email" required><br>
+            <button type="submit">Зарегистрировать</button>
+        </form>
+        <br>
+        <a href="/list_users">← Вернуться к списку пользователей</a>
+    </div>
+</body>
+</html>
