@@ -19,7 +19,6 @@ Frontend: Bootstrap 5, HTML/CSS, JavaScript
 
 1. Локальная разработка (без Docker)
 
-bash git clone https://github.com/ваш-username/user-management.git
 
 cd user-management
 
@@ -164,6 +163,7 @@ Frontend основы: Bootstrap
 
 
 Проект готов к деплою на любой VPS и может служить основой для реальных систем управления пользователями.
+
 
 
 
