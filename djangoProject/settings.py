@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
+SECRET_KEY = 'django-insecure-jeysu!z1g7e=ulr*cypv!tw&au@(w$cv@+8shwzz3m0qmpl)k!'
 
 
 # Application definition
@@ -102,13 +102,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
-LANGUAGE_CODE = 'ru-ru'
-
-TIME_ZONE = 'Europe/Moscow'
 
 
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -116,6 +114,12 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

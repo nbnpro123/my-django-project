@@ -7,4 +7,6 @@ urlpatterns = [
     path('list_users/', views.list_users, name='list_users'),
     path('register/', views.register_view, name='register'),
     path('user/<int:user_id>/', views.user_detail, name='user_detail'),
+    path('user/<int:user_id>/delete/', views.delete_user, name='delete_user'),
+
 ]

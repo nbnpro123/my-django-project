@@ -2,26 +2,509 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Регистрация</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация пользователя</title>
+    <!-- Bootstrap для красоты -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: Arial; padding: 20px; }
-        .form-container { max-width: 500px; margin: 0 auto; }
-        input, button { padding: 10px; margin: 5px 0; width: 100%; }
-        button { background: #4CAF50; color: white; border: none; }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        
+        .registration-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .registration-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .registration-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .registration-title {
+            color: #333;
+            font-weight: 700;
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .registration-subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.5;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 18px;
+        }
+        
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px 15px 15px 45px;
+            font-size: 16px;
+            transition: all 0.3s;
+            height: 50px;
+            width: 100%;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+        
+        .btn-register {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            width: 100%;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-register:active {
+            transform: translateY(0);
+        }
+        
+        .back-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 25px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .back-link:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        .alert {
+            border-radius: 10px;
+            border: none;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .form-hint {
+            font-size: 13px;
+            color: #888;
+            margin-top: 5px;
+            margin-left: 5px;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #667eea;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .validation-rules {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .validation-rules h6 {
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .validation-rules ul {
+            margin: 0;
+            padding-left: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .validation-rules li {
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 576px) {
+            .registration-card {
+                padding: 30px 20px;
+            }
+            
+            .registration-title {
+                font-size: 26px;
+            }
+            
+            .form-control {
+                padding: 12px 12px 12px 40px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <h1>📝 Регистрация пользователя</h1>
-        <form method="POST">
+    <div class="registration-card">
+        <!-- Иконка и заголовок -->
+        <div class="registration-icon">
+            <i class="fas fa-user-plus"></i>
+        </div>
+        
+        <h1 class="registration-title">
+            📝 Регистрация пользователя
+        </h1>
+        
+        <p class="registration-subtitle">
+            Заполните форму ниже, чтобы добавить нового пользователя в систему
+        </p>
+        
+        <!-- Сообщения об успехе/ошибке -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {% if message.tags == 'success' %}
+                        <i class="fas fa-check-circle"></i>
+                    {% elif message.tags == 'error' %}
+                        <i class="fas fa-exclamation-circle"></i>
+                    {% else %}
+                        <i class="fas fa-info-circle"></i>
+                    {% endif %}
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <!-- Форма регистрации -->
+        <form method="POST" action="">
             {% csrf_token %}
-            <input type="text" name="name" placeholder="Имя" required><br>
-            <input type="number" name="age" placeholder="Возраст" required><br>
-            <input type="email" name="email" placeholder="Email" required><br>
-            <button type="submit">Зарегистрировать</button>
+            
+            <!-- Поле: Имя -->
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-user"></i>
+                    Имя пользователя
+                </label>
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" 
+                           class="form-control" 
+                           name="name" 
+                           placeholder="Введите полное имя" 
+                           required
+                           value="{{ form_data.name|default:'' }}">
+                </div>
+                <div class="form-hint">Минимум 2 символа, только буквы и пробелы</div>
+            </div>
+            
+            <!-- Поле: Возраст -->
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-birthday-cake"></i>
+                    Возраст
+                </label>
+                <div class="input-with-icon">
+                    <i class="fas fa-birthday-cake"></i>
+                    <input type="number" 
+                           class="form-control" 
+                           name="age" 
+                           placeholder="Введите возраст" 
+                           min="1" 
+                           max="120" 
+                           required
+                           value="{{ form_data.age|default:'' }}">
+                </div>
+                <div class="form-hint">Возраст должен быть от 1 до 120 лет</div>
+            </div>
+            
+            <!-- Поле: Email -->
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-envelope"></i>
+                    Email адрес
+                </label>
+                <div class="input-with-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" 
+                           class="form-control" 
+                           name="email" 
+                           placeholder="example@domain.com" 
+                           required
+                           value="{{ form_data.email|default:'' }}">
+                </div>
+                <div class="form-hint">Введите действующий email адрес</div>
+            </div>
+            
+            <!-- Кнопка отправки -->
+            <button type="submit" class="btn-register">
+                <i class="fas fa-user-plus"></i>
+                Зарегистрировать пользователя
+            </button>
+            
+            <!-- Ссылка для возврата -->
+            <a href="{% url 'list_users' %}" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Вернуться к списку пользователей
+            </a>
         </form>
-        <br>
-        <a href="/list_users">← Вернуться к списку пользователей</a>
+        
+        <!-- Правила валидации -->
+        <div class="validation-rules">
+            <h6><i class="fas fa-info-circle"></i> Правила заполнения формы:</h6>
+            <ul>
+                <li>Имя должно содержать только буквы и пробелы</li>
+                <li>Возраст должен быть в диапазоне от 1 до 120 лет</li>
+                <li>Email должен быть в формате name@domain.com</li>
+                <li>Все поля обязательны для заполнения</li>
+                <li>Email должен быть уникальным для каждого пользователя</li>
+            </ul>
+        </div>
+        
+        <!-- Информация о системе -->
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; text-align: center;">
+            <p style="font-size: 13px; color: #888;">
+                <i class="fas fa-shield-alt"></i> Ваши данные защищены и не передаются третьим лицам
+            </p>
+        </div>
     </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Дополнительные скрипты -->
+    <script>
+        // Анимация появления
+        document.addEventListener('DOMContentLoaded', function() {
+            const card = document.querySelector('.registration-card');
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+            
+            // Анимация для полей формы
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach((input, index) => {
+                input.style.opacity = '0';
+                input.style.transform = 'translateX(-20px)';
+                
+                setTimeout(() => {
+                    input.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                    input.style.opacity = '1';
+                    input.style.transform = 'translateX(0)';
+                }, 300 + (index * 100));
+            });
+        });
+        
+        // Валидация формы
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const name = document.querySelector('input[name="name"]').value.trim();
+            const age = document.querySelector('input[name="age"]').value;
+            const email = document.querySelector('input[name="email"]').value;
+            
+            let hasError = false;
+            
+            // Валидация имени
+            if (name.length < 2) {
+                showError('name', 'Имя должно содержать минимум 2 символа');
+                hasError = true;
+            }
+            
+            // Валидация возраста
+            const ageNum = parseInt(age);
+            if (ageNum < 1 || ageNum > 120) {
+                showError('age', 'Возраст должен быть от 1 до 120 лет');
+                hasError = true;
+            }
+            
+            // Валидация email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('email', 'Введите корректный email адрес');
+                hasError = true;
+            }
+            
+            if (hasError) {
+                e.preventDefault();
+                // Анимация тряски для формы
+                const form = document.querySelector('.registration-card');
+                form.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    form.style.animation = '';
+                }, 500);
+            }
+        });
+        
+        function showError(fieldName, message) {
+            const field = document.querySelector(`input[name="${fieldName}"]`);
+            const formGroup = field.closest('.form-group');
+            
+            // Создаем элемент с ошибкой
+            let errorElement = formGroup.querySelector('.error-message');
+            if (!errorElement) {
+                errorElement = document.createElement('div');
+                errorElement.className = 'error-message';
+                errorElement.style.color = '#dc3545';
+                errorElement.style.fontSize = '14px';
+                errorElement.style.marginTop = '5px';
+                formGroup.appendChild(errorElement);
+            }
+            
+            errorElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            
+            // Подсветка поля с ошибкой
+            field.style.borderColor = '#dc3545';
+            field.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.1)';
+            
+            // Убираем ошибку при исправлении
+            field.addEventListener('input', function() {
+                errorElement.remove();
+                field.style.borderColor = '#e0e0e0';
+                field.style.boxShadow = '';
+            }, { once: true });
+        }
+        
+        // Эффект при наведении на кнопку
+        const submitBtn = document.querySelector('.btn-register');
+        submitBtn.addEventListener('mouseenter', function() {
+            this.style.animation = 'pulse 0.5s';
+        });
+        
+        submitBtn.addEventListener('mouseleave', function() {
+            this.style.animation = '';
+        });
+        
+        // Добавляем стили для анимаций
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: translateY(-2px) scale(1); }
+                50% { transform: translateY(-2px) scale(1.05); }
+                100% { transform: translateY(-2px) scale(1); }
+            }
+            
+            @keyframes shake {
+                0%, 100% { transform: translateY(0) translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateY(0) translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateY(0) translateX(5px); }
+            }
+            
+            .form-control:invalid {
+                border-color: #dc3545 !important;
+            }
+            
+            .form-control:valid {
+                border-color: #28a745 !important;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Фокус на первое поле при загрузке
+        setTimeout(() => {
+            document.querySelector('input[name="name"]').focus();
+        }, 500);
+        
+        // Логирование в консоль для отладки
+        console.log('%c🚀 Страница регистрации загружена!', 'color: #667eea; font-size: 14px; font-weight: bold;');
+        console.log('%c✨ Готов к добавлению новых пользователей', 'color: #764ba2; font-size: 12px;');
+    </script>
 </body>
 </html>

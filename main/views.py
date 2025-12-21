@@ -70,6 +70,31 @@ def save_users(users):
         json.dump(users_to_save, file, ensure_ascii=False, indent=2)
 
 
+def delete_user(request, user_id):
+    """Удаление пользователя"""
+    users = load_users()
+
+    # Ищем пользователя по ID
+    user_to_delete = None
+    for user in users:
+        if user.get('id') == int(user_id):
+            user_to_delete = user
+            break
+
+    if not user_to_delete:
+        raise Http404("Пользователь не найден")
+
+    if request.method == 'POST':
+        # Удаляем пользователя
+        users = [user for user in users if user.get('id') != int(user_id)]
+        save_users(users)
+
+        messages.success(request, f'✅ Пользователь "{user_to_delete["name"]}" успешно удален!')
+        return redirect('list_users')
+
+    # Если GET запрос - показываем страницу подтверждения
+    return render(request, 'main/user_confirm_delete.html', {'user': user_to_delete})
+
 def main(request):
     """Главная страница"""
     return render(request, 'main/list.html')
