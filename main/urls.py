@@ -1,3 +1,4 @@
+# main/urls.py - убедись что есть все маршруты
 from django.urls import path
 from . import views
 
@@ -8,5 +9,4 @@ urlpatterns = [
     path('register/', views.register_view, name='register'),
     path('user/<int:user_id>/', views.user_detail, name='user_detail'),
     path('user/<int:user_id>/delete/', views.delete_user, name='delete_user'),
-
 ]
